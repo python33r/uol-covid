@@ -4,7 +4,9 @@ import csv
 import sys
 import requests
 from datetime import datetime
+from argparse import ArgumentParser
 from bs4 import BeautifulSoup
+
 
 URL = "https://coronavirus.leeds.ac.uk/statistics-and-support-available/"
 
@@ -51,15 +53,41 @@ def extract_data(table):
 
 
 def write_csv(data, filename):
-    with open(filename, "wt") as outfile:
+    with open(filename, "wt", newline="") as outfile:
         writer = csv.writer(outfile)
         writer.writerows(data)
 
 
+def append_csv(data, filename):
+    with open(filename, "rt", newline="") as infile:
+        reader = csv.reader(infile)
+        new_data = list(reader)
+    new_data.extend(data[1:])
+    write_csv(new_data, filename)
+
+
+def parse_command_line():
+    parser = ArgumentParser(
+        description="Scrapes UoL website and writes coronavirus stats to a CSV file."
+    )
+    parser.add_argument(
+        "-a", "--append", action="store_true",
+        help="append scraped data to specified file"
+    )
+    parser.add_argument(
+        "filename", metavar="FILENAME",
+        help="name of CSV file"
+    )
+    return parser.parse_args()
+
+
 if __name__ == "__main__":
-    if not sys.argv[1:]:
-        sys.exit("Usage: python uol-covid.py <csv-filename>")
+    args = parse_command_line()
 
     table = extract_table()
     data = extract_data(table)
-    write_csv(data, sys.argv[1])
+
+    if args.append:
+        append_csv(data, args.filename)
+    else:
+        write_csv(data, args.filename)
