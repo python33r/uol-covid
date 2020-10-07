@@ -1,13 +1,20 @@
 # uol-covid
 
-A simple web scraper to extract coronavirus case data from the University
-of Leeds website and write it to a CSV file.
+This repository contains a CSV file of aggregated coronavirus case
+data scraped from the University of Leeds website, along with Python
+code for the scraper.
 
-## Usage Example
+## Scraper Usage Examples
+
+To scrape case data and write to a new file:
 
     python uol-covid.py cases.csv
 
-## Dependencies
+To scrape case data and append to an existing file:
+
+    python uol-covid.py -a cases.csv
+
+## Scraper Dependencies
 
 * Requests
 * BeautifulSoup 4
