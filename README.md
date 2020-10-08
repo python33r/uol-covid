@@ -16,5 +16,9 @@ To scrape case data and append to an existing file:
 
 ## Scraper Dependencies
 
-* Requests
-* BeautifulSoup 4
+* [Requests](https://requests.readthedocs.io/en/master/)
+* [BeautifulSoup 4](https://www.crummy.com/software/BeautifulSoup/)
+
+To install, create and activate a Python 3 virtual environment, then do
+
+    pip install -r requirements.txt

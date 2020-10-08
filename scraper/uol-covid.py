@@ -1,7 +1,6 @@
 # Scrapes UoL coronavirus stats page and outputs data to a CSV file
 
 import csv
-import sys
 import requests
 from datetime import datetime
 from argparse import ArgumentParser
