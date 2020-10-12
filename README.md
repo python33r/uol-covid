@@ -10,9 +10,12 @@ To scrape case data and write to a new file:
 
     python uol-covid.py cases.csv
 
-To scrape case data and append to an existing file:
+To scrape case data and update an existing CSV file:
 
-    python uol-covid.py -a cases.csv
+    python uol-covid.py --update cases.csv
+
+Note: if the newly-scraped data contains records whose dates match existing
+records, those existing records will be replaced by the new data.
 
 ## Scraper Dependencies
 

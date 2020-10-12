@@ -39,8 +39,7 @@ def extract_data(table):
     assert len(staff_counts) == len(student_counts)
     assert len(student_counts) == len(totals)
 
-    data = [("Date", "Staff", "Students", "Total")]
-
+    data = []
     for i in range(1, len(dates)):
         dt = datetime.strptime(dates[i].string, "%d %B %Y")
         data.append((dt.date().isoformat(), staff_counts[i].string,
@@ -52,15 +51,22 @@ def extract_data(table):
 def write_csv(data, filename):
     with open(filename, "wt", newline="") as outfile:
         writer = csv.writer(outfile)
+        writer.writerow(("Date", "Staff", "Students", "Total"))
         writer.writerows(data)
 
 
-def append_csv(data, filename):
+def read_csv(filename):
     with open(filename, "rt", newline="") as infile:
         reader = csv.reader(infile)
-        new_data = list(reader)
-    new_data.extend(data[1:])
-    write_csv(new_data, filename)
+        return list(reader)[1:]
+
+
+def update_csv(new_data, filename):
+    current_by_date = { rec[0]: tuple(rec) for rec in read_csv(filename) }
+    new_by_date = { rec[0]: rec for rec in new_data }
+    merged_by_date = { **current_by_date, **new_by_date }
+    merged = sorted(merged_by_date.values())
+    write_csv(merged, filename)
 
 
 def parse_command_line():
@@ -68,8 +74,8 @@ def parse_command_line():
         description="Scrapes UoL website and writes coronavirus stats to a CSV file."
     )
     parser.add_argument(
-        "-a", "--append", action="store_true",
-        help="append scraped data to specified file"
+        "-u", "--update", action="store_true",
+        help="use scraped data to update specified file"
     )
     parser.add_argument(
         "filename", metavar="FILENAME",
@@ -84,7 +90,7 @@ if __name__ == "__main__":
     table = extract_table()
     data = extract_data(table)
 
-    if args.append:
-        append_csv(data, args.filename)
+    if args.update:
+        update_csv(data, args.filename)
     else:
         write_csv(data, args.filename)
