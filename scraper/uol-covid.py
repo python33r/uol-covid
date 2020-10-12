@@ -19,11 +19,9 @@ def extract_table():
     table = doc.find("table")
 
     # Sanity check that this is the table we want
-    # (should be preceded by "confirmed coronavirus cases")
-
-    prev_tag = table.find_previous_sibling()
-    assert prev_tag.name == "p"
-    text = str(prev_tag.string).lower()
+    prev_element = table.find_parent().find_previous_sibling()
+    assert prev_element.name == "p"
+    text = str(prev_element.string).lower()
     assert text.startswith("confirmed coronavirus cases")
 
     return table
