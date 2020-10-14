@@ -29,21 +29,24 @@ def extract_table():
 
 def extract_data(table):
     rows = table.find_all("tr")
-    assert len(rows) == 4
+    assert len(rows) == 5
 
     dates = rows[0].find_all("td")
     staff_counts = rows[1].find_all("td")
     student_counts = rows[2].find_all("td")
-    totals = rows[3].find_all("td")
+    other_counts = rows[3].find_all("td")
+    totals = rows[4].find_all("td")
     assert len(dates) == len(staff_counts)
     assert len(staff_counts) == len(student_counts)
-    assert len(student_counts) == len(totals)
+    assert len(student_counts) == len(other_counts)
+    assert len(other_counts) == len(totals)
 
     data = []
     for i in range(1, len(dates)):
         dt = datetime.strptime(dates[i].string, "%d %B %Y")
         data.append((dt.date().isoformat(), staff_counts[i].string,
-            student_counts[i].string, totals[i].string))
+            student_counts[i].string, other_counts[i].string,
+            totals[i].string))
 
     return data
 
@@ -51,7 +54,7 @@ def extract_data(table):
 def write_csv(data, filename):
     with open(filename, "wt", newline="") as outfile:
         writer = csv.writer(outfile)
-        writer.writerow(("Date", "Staff", "Students", "Total"))
+        writer.writerow(("Date", "Staff", "Students", "Other", "Total"))
         writer.writerows(data)
 
 
