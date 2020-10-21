@@ -1,4 +1,4 @@
-# Computes active cases by day from daily case totals
+# Computes active cases from daily case totals
 
 import csv
 from argparse import ArgumentParser
