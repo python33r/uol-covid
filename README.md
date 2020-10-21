@@ -17,10 +17,22 @@ To scrape case data and update an existing CSV file:
 Note: if the newly-scraped data contains records whose dates match existing
 records, those existing records will be replaced by the new data.
 
-## Scraper Dependencies
+## Analysis Examples
+
+To derive day-by-day active cases from a CSV file of daily case reports:
+
+    python active.py cases.csv
+
+This will display the active cases on screen as a table.  To output the
+active cases to a file, do
+
+    python active.py -o active.csv cases.csv
+
+## Dependencies
 
 * [Requests][req]
 * [BeautifulSoup 4][bs]
+* [Rich][rich] (not required for scraper)
 
 To install, create and activate a Python 3 virtual environment, then do
 
@@ -29,3 +41,4 @@ To install, create and activate a Python 3 virtual environment, then do
 [uol]: https://coronavirus.leeds.ac.uk/statistics-and-support-available/
 [req]: https://requests.readthedocs.io/en/master/
 [bs]: https://www.crummy.com/software/BeautifulSoup/
+[rich]: https://rich.readthedocs.io/en/latest/introduction.html
