@@ -34,7 +34,8 @@ def display_active_cases(data):
     table.add_column("Total", justify="right")
     for row in data:
         table.add_row(row[0], str(row[1]), str(row[2]), str(row[3]), str(row[4]))
-    console.print(table)
+    with console.pager():
+        console.print(table)
 
 
 def write_csv(data, filename):
