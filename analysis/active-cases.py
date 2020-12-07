@@ -48,7 +48,7 @@ def write_csv(data, filename):
 def parse_command_line():
     parser = ArgumentParser(
         description="Computes active cases by day from daily case totals.",
-        epilog="Active cases are displayed on screen if no output file is specified."
+        epilog="Active cases are tabulated on screen if no output file is specified."
     )
     parser.add_argument(
         "-o", metavar="FILENAME", dest="outfile",

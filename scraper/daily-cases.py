@@ -74,7 +74,7 @@ def update_csv(new_data, filename):
 
 def parse_command_line():
     parser = ArgumentParser(
-        description="Scrapes UoL website and writes coronavirus stats to a CSV file."
+        description="Scrapes UoL website and writes daily coronavirus cases to a CSV file."
     )
     parser.add_argument(
         "-u", "--update", action="store_true",
