@@ -43,7 +43,7 @@ def extract_data(table):
 
     data = []
     for i in range(1, len(dates)):
-        dt = datetime.strptime(dates[i].string, "%d %B %Y")
+        dt = datetime.strptime(dates[i].string, "%d %b %Y")
         data.append((dt.date().isoformat(), staff_counts[i].string,
             student_counts[i].string, other_counts[i].string,
             totals[i].string))
