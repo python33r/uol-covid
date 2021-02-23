@@ -32,8 +32,8 @@ def extract_data(table):
     assert len(rows) == 5
 
     dates = rows[0].find_all("td")
-    staff_counts = rows[1].find_all("td")
-    student_counts = rows[2].find_all("td")
+    staff_counts = rows[2].find_all("td")
+    student_counts = rows[1].find_all("td")
     other_counts = rows[3].find_all("td")
     totals = rows[4].find_all("td")
     assert len(dates) == len(staff_counts)
